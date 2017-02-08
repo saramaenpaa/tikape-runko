@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    
+    <head>
+        <title>Foorumin etusivu</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        
+        
+    </head>
+    
+    <body style="background-color:#FFF0F0">
+        <h1>Etusivu</h1>
+        Tämä on etusivu.
+        <ul>
+            <li th:each="keskustelualue: ${keskustelualueet}">
+                <a th:href="${'/a/' + keskustelualue.alueenNimi}"> <b><span th:text="${keskustelualue.alueenNimi}"></span>:</b> <span th:text="${keskustelualue.kuvaus}"></span> </a>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -24,7 +24,7 @@ public class Main {
         LangatDao langatDao = new LangatDao(database);
         
         for (Langat e: langatDao.findAll()) {
-            System.out.println(e.getViestiNro() + " " + e.getOtsikko());
+            System.out.println(e.getViestiNro() + " " + e.getOtsikko() + " " + e.getAikaleima());
            // Tulostaa lankojen nimet + kuvaukset
         }
         

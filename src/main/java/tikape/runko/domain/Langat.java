@@ -39,6 +39,9 @@ public class Langat {
         this.viestiNro = viestiNro;
     }
     
+    public Calendar getAikaleima() {
+        return aikaleima;
+    }
     
     
 }

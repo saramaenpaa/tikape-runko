@@ -21,7 +21,7 @@ public class Main {
         
         for (Keskustelualue e: keskustelualueDao.findAll()) {
             System.out.println(e.getAlueenNimi() + "-" + e.getKuvaus());
-
+           // Tulostaa alueiden nimet + kuvaukset
 
 
 //        get("/", (req, res) -> {

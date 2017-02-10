@@ -1,6 +1,5 @@
 
 package tikape.runko.domain;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,7 +9,6 @@ public class Langat {
     private String otsikko;
     private Keskustelualue alue;
     private Date aikaleima;
-    private Calendar kalenteri;
 
     public Langat(Integer viestiNro, String otsikko, Keskustelualue alue, Date aikaleima) {
         this.viestiNro = viestiNro;

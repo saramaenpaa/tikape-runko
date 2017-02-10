@@ -1,17 +1,12 @@
 package tikape.runko;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.KeskustelualueDao;
 import tikape.runko.database.LangatDao;
-import tikape.runko.database.OpiskelijaDao;
 import tikape.runko.database.VastauksetDao;
 import tikape.runko.domain.Keskustelualue;
 import tikape.runko.domain.Langat;
@@ -25,9 +20,7 @@ public class Main {
         database.init();
 
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
-        
         LangatDao langatDao = new LangatDao(database);
-        
         VastauksetDao vastauksetDao = new VastauksetDao(database);
         
         for (Langat e: langatDao.findAll()) {
@@ -35,8 +28,6 @@ public class Main {
            // Tulostaa lankojen nimet + kuvaukset
            // Aikaleima on VÄÄRÄ, tulostaa nykyisen ajan!
         }
-        
-        
         
         
         for (Keskustelualue e: keskustelualueDao.findAll()) {
@@ -50,9 +41,9 @@ public class Main {
         for (Vastaukset e : vastauksetDao.findAll()) {
             System.out.println(e.getViestiNro() + " " + e.getTeksti());
             // Tulostaa vastauksien numerot, langat sekä tekstit.
+            vastauksetDao.Aikaleima(1);
         }
-           
-           
+               
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite ja siihen viittaava dokumentti on etusivu.html.
         get("/", (req, res) -> {

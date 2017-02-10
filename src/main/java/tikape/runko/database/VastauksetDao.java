@@ -2,11 +2,15 @@
 package tikape.runko.database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import tikape.runko.domain.Keskustelualue;
 import tikape.runko.domain.Langat;
@@ -70,7 +74,25 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
 
         return vastaukset;
     }
+    
+    public void Aikaleima(Integer key)  throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
 
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT aikaleima FROM Vastaukset WHERE viestiNro =" +key);
+
+        while (rs.next()) {
+            Timestamp aikaleima = rs.getTimestamp("aikaleima");
+
+            System.out.println(aikaleima);
+        }
+
+        stmt.close();
+        rs.close();
+
+        connection.close();
+//       Ei toimi
+    }
 
     @Override
     public void delete(Integer key) throws SQLException {

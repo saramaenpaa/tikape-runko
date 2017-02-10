@@ -1,7 +1,10 @@
 package tikape.runko;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -30,10 +33,15 @@ public class Main {
         for (Langat e: langatDao.findAll()) {
             System.out.println(e.getViestiNro() + " " + e.getOtsikko() + " " + e.getAikaleima());
            // Tulostaa lankojen nimet + kuvaukset
+           // Aikaleima on VÄÄRÄ, tulostaa nykyisen ajan!
         }
+        
+        
+        
         
         for (Keskustelualue e: keskustelualueDao.findAll()) {
             System.out.println(e.getAlueenNimi() + " - " + e.getKuvaus());
+ 
            // Tulostaa alueiden nimet + kuvaukset
         }
         

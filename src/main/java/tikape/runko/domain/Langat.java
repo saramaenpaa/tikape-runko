@@ -1,15 +1,18 @@
 
 package tikape.runko.domain;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class Langat {
     private Integer viestiNro;
     private String otsikko;
     private Keskustelualue alue;
-    private Calendar aikaleima;
+    private Date aikaleima;
+    private Calendar kalenteri;
 
-    public Langat(Integer viestiNro, String otsikko, Keskustelualue alue, Calendar aikaleima) {
+    public Langat(Integer viestiNro, String otsikko, Keskustelualue alue, Date aikaleima) {
         this.viestiNro = viestiNro;
         this.otsikko = otsikko;
         this.alue = alue;
@@ -20,7 +23,8 @@ public class Langat {
         this.viestiNro = viestiNro;
         this.otsikko = otsikko;
         this.alue = alue;
-        this.aikaleima = Calendar.getInstance();
+        Calendar start = Calendar.getInstance();
+        this.aikaleima = start.getTime();
     }
 
     public String getOtsikko() {
@@ -39,9 +43,9 @@ public class Langat {
         this.viestiNro = viestiNro;
     }
     
-    public Calendar getAikaleima() {
+    public Date getAikaleima() {
+        
         return aikaleima;
     }
-    
     
 }

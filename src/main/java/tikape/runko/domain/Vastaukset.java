@@ -47,5 +47,10 @@ public class Vastaukset {
         this.viestiNro = viestiNro;
     }
     
+    public Calendar getAikaleima() {
+        return aikaleima;
+        //Tulostaa aikaleiman väärin
+    }
+    
     
 }

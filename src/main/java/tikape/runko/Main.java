@@ -83,6 +83,7 @@ public class Main {
             map.put("langat", langatDao.findAllFrom("Kissat"));
             return new ModelAndView(map, "keskustelualue");
          }, new ThymeleafTemplateEngine());
+        // Tämä get-metodi ei toimi, findAllFrom-toimii
 
 //        get("/opiskelijat", (req, res) -> {
 //            HashMap map = new HashMap<>();

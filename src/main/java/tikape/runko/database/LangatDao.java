@@ -74,6 +74,28 @@ public class LangatDao implements Dao<Langat, Integer> {
     public void delete(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public List<Langat> findOne2(Integer key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Langat WHERE viestiNro = ?");
+        stmt.setObject(1, key);
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Langat> langat = new ArrayList<>();
+        while (rs.next()) {
+            Integer viestiNro = rs.getInt("viestiNro");
+            String otsikko = rs.getString("otsikko");
+            Keskustelualue alue = keskustelualue;
+
+            langat.add(new Langat(viestiNro, otsikko, keskustelualue));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return langat;
+    }
 
 }
 

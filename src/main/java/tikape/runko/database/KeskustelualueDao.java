@@ -30,7 +30,7 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
         }
 
         
-        String nimi = rs.getString("nimi");
+        String nimi = rs.getString("alueenNimi");
         String kuvaus = rs.getString("kuvaus");
 
         Keskustelualue o = new Keskustelualue(nimi, kuvaus);
@@ -68,6 +68,28 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
     @Override
     public void delete(String key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+        
+    public List<Keskustelualue> findOne2(String key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelualue WHERE alueenNimi = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        List<Keskustelualue> keskustelualueet = new ArrayList<>();
+        while (rs.next()) {
+            String alueenNimi = rs.getString("alueenNimi");
+            String kuvaus = rs.getString("kuvaus");
+
+            keskustelualueet.add(new Keskustelualue(alueenNimi, kuvaus));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return keskustelualueet;
     }
 
 }

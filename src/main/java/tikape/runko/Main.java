@@ -29,20 +29,43 @@ public class Main {
            // Aikaleima on VÄÄRÄ, tulostaa nykyisen ajan!
         }
         
+        System.out.println("");
         
         for (Keskustelualue e: keskustelualueDao.findAll()) {
             System.out.println(e.getAlueenNimi() + " - " + e.getKuvaus());
  
-           // Tulostaa alueiden nimet + kuvaukset
+           // Tulostaa alueiden nimet + kuvaukse
+
+        }
+        
+        for (Vastaukset e : vastauksetDao.findAll()) {
+            System.out.println(e.getViestiNro() + " " + e.getTeksti());
+            
+            // Tulostaa vastauksien numerot, langat sekä tekstit.
         }
         
         System.out.println("");
-          
-        for (Vastaukset e : vastauksetDao.findAll()) {
-            System.out.println(e.getViestiNro() + " " + e.getTeksti());
-            // Tulostaa vastauksien numerot, langat sekä tekstit.
-            vastauksetDao.Aikaleima(1);
+        
+        for (Keskustelualue e : keskustelualueDao.findOne2("Kissat")) {
+            System.out.println(e.getAlueenNimi() + ": " + e.getKuvaus());
+            // Tulostaa tietyn keskustelualueen
         }
+        
+        System.out.println("");
+        
+        for (Langat e : langatDao.findOne2(1)) {
+            System.out.println(e.getViestiNro() + " " + e.getOtsikko());
+            // Tulostaa tietyn langan
+        }
+        
+        System.out.println("");
+        
+        for (Vastaukset e : vastauksetDao.findOne2(1)) {
+            System.out.println(e.getViestiNro() + " " + e.getLanka() + " " + e.getTeksti());
+        }
+          
+
+        
                
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite ja siihen viittaava dokumentti on etusivu.html.

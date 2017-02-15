@@ -42,7 +42,6 @@ public class Langat {
     }
     
     public Date getAikaleima() {
-        
         return aikaleima;
     }
     

@@ -74,29 +74,32 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
 
         return vastaukset;
     }
-    
-    public void Aikaleima(Integer key)  throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
-
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT aikaleima FROM Vastaukset WHERE viestiNro =" +key);
-
-        while (rs.next()) {
-            Timestamp aikaleima = rs.getTimestamp("aikaleima");
-
-            System.out.println(aikaleima);
-        }
-
-        stmt.close();
-        rs.close();
-
-        connection.close();
-//       Ei toimi
-    }
 
     @Override
     public void delete(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public List<Vastaukset> findOne2(Integer key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaukset WHERE viestiNro = ?");
+        stmt.setObject(1, key);
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Vastaukset> vastaukset = new ArrayList<>();
+        while (rs.next()) {
+            Integer viestiNro = rs.getInt("viestiNro");
+            String teksti = rs.getString("teksti");
+            Langat lanka = langat;
+
+            vastaukset.add(new Vastaukset(viestiNro, lanka, teksti));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return vastaukset;
     }
 
 }

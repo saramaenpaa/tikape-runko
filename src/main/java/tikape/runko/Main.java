@@ -62,10 +62,9 @@ public class Main {
         
         for (Vastaukset e : vastauksetDao.findOne2(1)) {
             System.out.println(e.getViestiNro() + " " + e.getLanka() + " " + e.getTeksti());
+            // Tulostaa tietyn vastauksen
         }
           
-
-        
                
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite ja siihen viittaava dokumentti on etusivu.html.
@@ -78,6 +77,12 @@ public class Main {
 
             return new ModelAndView(map, "etusivu");//Tämä rivi määrää, mitä html-sivua käytetään etusivuna. Tässä etusivu.html.
         }, new ThymeleafTemplateEngine());
+        
+        get("/a/:alueenNimi", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("langat", langatDao.findAllFrom("Kissat"));
+            return new ModelAndView(map, "keskustelualue");
+         }, new ThymeleafTemplateEngine());
 
 //        get("/opiskelijat", (req, res) -> {
 //            HashMap map = new HashMap<>();

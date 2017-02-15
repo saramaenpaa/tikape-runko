@@ -91,6 +91,28 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
 
         return keskustelualueet;
     }
+    
+    public List<Keskustelualue> findAllFrom(String key) throws SQLException {
+
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Langat WHERE alueenNimi.Keskustelualueet = ?");
+        stmt.setObject(1, key);
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Keskustelualue> keskustelualueet = new ArrayList<>();
+        while (rs.next()) {
+            String alueenNimi = rs.getString("alueenNimi");
+            String kuvaus = rs.getString("kuvaus");
+
+            keskustelualueet.add(new Keskustelualue(alueenNimi, kuvaus));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return keskustelualueet;
+    }
 
 }
 

@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    
+    <head>
+        <title>Alueen nimi</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        
+        
+    </head>
+    
+    <body style="background-color:#FFF0F0">
+        <ul>
+            <li th:each="omaNimi: ${omaNimi}">
+                <h1><span th:text="${omaNimi.alueenNimi}"></span></h1>
+            </li>
+        </ul>
+        <ul>
+            <li th:each="langat: ${langat}">
+                <a th:href="${'/l/' + langat.viestiNro}"> <b><span th:text="${langat.otsikko}"></span></b> </a>
+            </li>
+        </ul>
+    </body>
+</html>

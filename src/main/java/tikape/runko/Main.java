@@ -22,52 +22,6 @@ public class Main {
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
         LangatDao langatDao = new LangatDao(database);
         VastauksetDao vastauksetDao = new VastauksetDao(database);
-        
-        for (Langat e: langatDao.findAll()) {
-            System.out.println(e.getViestiNro() + " " + e.getOtsikko() + " " + e.getAikaleima());
-           // Tulostaa lankojen nimet + kuvaukset
-           // Aikaleima on VÄÄRÄ, tulostaa nykyisen ajan!
-        }
-        
-        System.out.println("");
-        
-        for (Keskustelualue e: keskustelualueDao.findAll()) {
-            System.out.println(e.getAlueenNimi() + " - " + e.getKuvaus());
- 
-           // Tulostaa alueiden nimet + kuvaukse
-
-        }
-        
-        for (Vastaukset e : vastauksetDao.findAll()) {
-            System.out.println(e.getViestiNro() + " " + e.getTeksti());
-            
-            // Tulostaa vastauksien numerot, langat sekä tekstit.
-        }
-        
-        System.out.println("");
-        
-        for (Keskustelualue e : keskustelualueDao.findOne2("Kissat")) {
-            System.out.println(e.getAlueenNimi() + ": " + e.getKuvaus());
-            // Tulostaa tietyn keskustelualueen
-        }
-        
-        System.out.println("");
-        
-        for (Langat e : langatDao.findOne2(1)) {
-            System.out.println(e.getViestiNro() + " " + e.getOtsikko());
-            // Tulostaa tietyn langan
-        }
-        
-        System.out.println("");
-        
-        for (Vastaukset e : vastauksetDao.findOne2(1)) {
-            System.out.println(e.getViestiNro() + " " + e.getLanka() + " " + e.getTeksti());
-            // Tulostaa tietyn vastauksen
-        }
-        
-        System.out.println("");
-       
-               
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite ja siihen viittaava dokumentti on etusivu.html.
         get("/", (req, res) -> {
@@ -82,31 +36,17 @@ public class Main {
         
         get("/a/:alueenNimi", (req, res) -> {
             HashMap map = new HashMap<>();
+            map.put("omaNimi", keskustelualueDao.findOne2(req.params("alueenNimi")).get(0));
             map.put("langat", langatDao.findAllFrom(req.params("alueenNimi")));
             return new ModelAndView(map, "keskustelualue");
          }, new ThymeleafTemplateEngine());
         
         get("/l/:viestiNro", (req, res) -> {
             HashMap map = new HashMap<>();
+            map.put("omaNimi", langatDao.findOne2(Integer.parseInt(req.params("viestiNro"))).get(0));
             map.put("vastaukset", vastauksetDao.findAllFrom(Integer.parseInt(req.params("viestiNro"))));
             return new ModelAndView(map, "langat");
         }, new ThymeleafTemplateEngine());
-        
-        
 
-//        get("/opiskelijat", (req, res) -> {
-//            HashMap map = new HashMap<>();
-////            map.put("opiskelijat", opiskelijaDao.findAll());
-//
-//            return new ModelAndView(map, "opiskelijat");
-//        }, new ThymeleafTemplateEngine());
-//
-//        get("/opiskelijat/:id", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("opiskelija", opiskelijaDao.findOne(Integer.parseInt(req.params("id"))));
-//
-//            return new ModelAndView(map, "opiskelija");
-////        }, new ThymeleafTemplateEngine());
-//        }
     }
 }

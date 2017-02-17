@@ -80,7 +80,7 @@ public class Main {
         
         get("/a/:alueenNimi", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("langat", langatDao.findAllFrom("Kissat"));
+            map.put("langat", langatDao.findAllFrom(req.params("alueenNimi")));
             return new ModelAndView(map, "keskustelualue");
          }, new ThymeleafTemplateEngine());
         // Tämä get-metodi ei toimi, findAllFrom-toimii

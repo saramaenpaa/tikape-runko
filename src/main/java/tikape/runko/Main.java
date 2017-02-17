@@ -64,7 +64,9 @@ public class Main {
             System.out.println(e.getViestiNro() + " " + e.getLanka() + " " + e.getTeksti());
             // Tulostaa tietyn vastauksen
         }
-          
+        
+        System.out.println("");
+       
                
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite ja siihen viittaava dokumentti on etusivu.html.
@@ -83,7 +85,14 @@ public class Main {
             map.put("langat", langatDao.findAllFrom(req.params("alueenNimi")));
             return new ModelAndView(map, "keskustelualue");
          }, new ThymeleafTemplateEngine());
-        // Tämä get-metodi ei toimi, findAllFrom-toimii
+        
+        get("/l/:viestiNro", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("vastaukset", vastauksetDao.findAllFrom(Integer.parseInt(req.params("viestiNro"))));
+            return new ModelAndView(map, "langat");
+        }, new ThymeleafTemplateEngine());
+        
+        
 
 //        get("/opiskelijat", (req, res) -> {
 //            HashMap map = new HashMap<>();

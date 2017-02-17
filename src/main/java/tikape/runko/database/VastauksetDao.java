@@ -101,5 +101,29 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
 
         return vastaukset;
     }
+    
+    public List<Vastaukset> findAllFrom(Integer key) throws SQLException {
+
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT Vastaukset.* FROM Vastaukset, Langat WHERE Vastaukset.lanka=Langat.viestiNro AND Langat.viestiNro = ?");
+        stmt.setObject(1, key);
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Vastaukset> vastaukset = new ArrayList<>();
+        while (rs.next()) {
+            Integer viestiNro = rs.getInt("viestiNro");
+            String teksti = rs.getString("teksti");
+            Langat lanka = langat;
+
+            vastaukset.add(new Vastaukset(viestiNro, lanka, teksti));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return vastaukset;
+    }
+
 
 }

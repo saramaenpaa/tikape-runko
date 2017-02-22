@@ -140,8 +140,7 @@ public class LangatDao implements Dao<Langat, Integer> {
 
         return lista.get(0);
     }    
-    
-    
+     
 
 }
 

@@ -24,6 +24,8 @@ public class Main {
         VastauksetDao vastauksetDao = new VastauksetDao(database);
         
         System.out.println(vastauksetDao.viestienMaaraFrom("Kissat"));
+        System.out.println(vastauksetDao.viestienMaara());
+        
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite ja siihen viittaava dokumentti on etusivu.html.
         get("/", (req, res) -> {
@@ -32,6 +34,7 @@ public class Main {
             //Etusivulla on lista, jonka alkioiden attribuutin th:each arvo on "keskustelualue: ${keskustelualueet}".
             //Liitetään avain "keskustelualueet" List<keskustelualue>-tyypin muuttujaan, joka taas palautetaan keskustelualueDaon metodilla findAll.
             map.put("keskustelualueet", keskustelualueDao.findAll());
+//            map.put("viestitAlueittain", vastauksetDao.viestienMaara());
 
             return new ModelAndView(map, "etusivu");//Tämä rivi määrää, mitä html-sivua käytetään etusivuna. Tässä etusivu.html.
         }, new ThymeleafTemplateEngine());

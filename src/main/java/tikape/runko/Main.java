@@ -22,6 +22,8 @@ public class Main {
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
         LangatDao langatDao = new LangatDao(database);
         VastauksetDao vastauksetDao = new VastauksetDao(database);
+        
+        System.out.println(vastauksetDao.viestienMaaraFrom("Kissat"));
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite ja siihen viittaava dokumentti on etusivu.html.
         get("/", (req, res) -> {

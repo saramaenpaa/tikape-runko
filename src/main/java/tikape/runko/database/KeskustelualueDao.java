@@ -113,6 +113,24 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
 
         return keskustelualueet;
     }
+    
+    public Integer viestienMaara() throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM Keskustelualue");
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Integer> lista = new ArrayList<>();
+        while (rs.next()) {
+            Integer montako = rs.getInt("total");
+            lista.add(montako);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return lista.get(0);
+    }    
 
 }
 

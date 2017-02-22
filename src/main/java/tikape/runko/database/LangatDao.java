@@ -120,6 +120,28 @@ public class LangatDao implements Dao<Langat, Integer> {
 
         return langat;
     }
+    
+    public Integer lankojenMaaraFrom(String key) throws SQLException {
+        // Laskee lankojen määrät tietyssä alueessa, ei kuitenkaan laske kaikki vastaukset
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM Langat WHERE Langat.alue = ?");
+        stmt.setObject(1, key);
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Integer> lista = new ArrayList<>();
+        while (rs.next()) {
+            Integer montako = rs.getInt("total");
+            lista.add(montako);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return lista.get(0);
+    }    
+    
+    
 
 }
 

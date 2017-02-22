@@ -124,6 +124,44 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
 
         return vastaukset;
     }
+    
+    public Integer viestienMaara() throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM Vastaukset");
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Integer> lista = new ArrayList<>();
+        while (rs.next()) {
+            Integer montako = rs.getInt("total");
+            lista.add(montako);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return lista.get(0);
+    }    
+    
+    public Integer viestienMaaraFrom(String key) throws SQLException {
+        // Laskee vastauksien määrät tietyssä alueessa, ei kuitenkaan laske kaikki vastaukset
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM Vastaukset, Langat WHERE Vastaukset.lanka = Langat.viestiNro AND Langat.alue = ?");
+        stmt.setObject(1, key);
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Integer> lista = new ArrayList<>();
+        while (rs.next()) {
+            Integer montako = rs.getInt("total");
+            lista.add(montako);
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return lista.get(0);
+    }    
 
 
 }

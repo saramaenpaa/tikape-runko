@@ -39,11 +39,12 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
         }
         
         Integer viestiNro = rs.getInt("viestiNro");
+        Integer lanka = rs.getInt("lanka");
         String teksti = rs.getString("teksti");
-        Langat lanka = langat;
+        String aikaleima = rs.getString("aikaleima");
 
 
-        Vastaukset o = new Vastaukset(viestiNro, lanka, teksti);
+        Vastaukset o = new Vastaukset(viestiNro, lanka, teksti, aikaleima);
         
         rs.close();
         stmt.close();
@@ -62,10 +63,11 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
         List<Vastaukset> vastaukset = new ArrayList<>();
         while (rs.next()) {
             Integer viestiNro = rs.getInt("viestiNro");
+            Integer lanka = rs.getInt("lanka");
             String teksti = rs.getString("teksti");
-            Langat lanka = langat;
-
-            vastaukset.add(new Vastaukset(viestiNro, lanka, teksti));
+            String aikaleima = rs.getString("aikaleima");
+            
+            vastaukset.add(new Vastaukset(viestiNro, lanka, teksti, aikaleima));
         }
 
         rs.close();
@@ -89,8 +91,8 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
         List<Vastaukset> vastaukset = new ArrayList<>();
         while (rs.next()) {
             Integer viestiNro = rs.getInt("viestiNro");
+            Integer lanka = rs.getInt("lanka");
             String teksti = rs.getString("teksti");
-            Langat lanka = langat;
 
             vastaukset.add(new Vastaukset(viestiNro, lanka, teksti));
         }
@@ -112,10 +114,11 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
         List<Vastaukset> vastaukset = new ArrayList<>();
         while (rs.next()) {
             Integer viestiNro = rs.getInt("viestiNro");
+            Integer lanka = rs.getInt("lanka");
             String teksti = rs.getString("teksti");
-            Langat lanka = langat;
+            String aikaleima = rs.getString("aikaleima");
 
-            vastaukset.add(new Vastaukset(viestiNro, lanka, teksti));
+            vastaukset.add(new Vastaukset(viestiNro, lanka, teksti, aikaleima));
         }
 
         rs.close();

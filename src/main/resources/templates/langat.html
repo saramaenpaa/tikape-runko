@@ -13,11 +13,13 @@
 
 
         <h1><span th:text="${omaNimi.otsikko}"></span></h1>
-
-
+        <h3><span th:text="${omaNimi.viestiNro}"></span> | <span th:text="${omaNimi.aikaleima}"></span></h3>
         <ul>
             <li th:each="vastaukset: ${vastaukset}">
-                <span th:text="${vastaukset.viestiNro}"></span> | <span th:text="${vastaukset.teksti}"></span>
+                <p>
+                    <span th:text="${vastaukset.viestiNro}">viestinumero</span> >>(<span th:text="${vastaukset.lanka}"></span>) | <span th:text="${vastaukset.aikaleima}">aikaleima</span><br/>
+                    <span th:text="${vastaukset.teksti}">kommentti</span>
+                </p>
             </li>
         </ul>
         <form method="POST" action="/l/:langanNimi">

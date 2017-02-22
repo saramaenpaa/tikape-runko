@@ -5,25 +5,25 @@ import java.util.Calendar;
 
 public class Vastaukset {
     private Integer viestiNro;
-    private Langat lanka;
+    private Integer lanka;
     private String teksti;
-    private Calendar aikaleima;
+    private String aikaleima;
 
-    public Vastaukset(Integer viestiNro, Langat lanka, String teksti, Calendar aikaleima) {
+    public Vastaukset(Integer viestiNro, Integer lanka, String teksti, String aikaleima) {
         this.viestiNro = viestiNro;
         this.lanka = lanka;
         this.teksti = teksti;
         this.aikaleima = aikaleima;
     }
     
-    public Vastaukset(Integer viestiNro, Langat lanka, String teksti) {
+    public Vastaukset(Integer viestiNro, Integer lanka, String teksti) {
         this.viestiNro = viestiNro;
         this.lanka = lanka;
         this.teksti = teksti;
-        this.aikaleima = Calendar.getInstance();
+        this.aikaleima = Calendar.getInstance().getTime().toString();
     }
 
-    public Langat getLanka() {
+    public Integer getLanka() {
         return lanka;
     }
 
@@ -35,7 +35,7 @@ public class Vastaukset {
         return viestiNro;
     }
 
-    public void setLanka(Langat lanka) {
+    public void setLanka(Integer lanka) {
         this.lanka = lanka;
     }
 
@@ -47,9 +47,8 @@ public class Vastaukset {
         this.viestiNro = viestiNro;
     }
     
-    public Calendar getAikaleima() {
+    public String getAikaleima() {
         return aikaleima;
-        //Tulostaa aikaleiman väärin
     }
 
     

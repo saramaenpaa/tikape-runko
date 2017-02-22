@@ -1,28 +1,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    
+
     <head>
         <title>Langan nimi</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
-        
-        
+
+
+
     </head>
-    
+
     <body style="background-color:#FFF0F0">
-        
-            
-                <h1><span th:text="${omaNimi.otsikko}"></span></h1>
-                <h2><span th:text="${omaNimi.aikaleima}"></span></h2>
-            
-        
+
+
+        <h1><span th:text="${omaNimi.otsikko}"></span></h1>
+        <h3><span th:text="${omaNimi.viestiNro}"></span> | <span th:text="${omaNimi.aikaleima}"></span></h3>
         <ul>
             <li th:each="vastaukset: ${vastaukset}">
                 <p>
-                <span th:text="${vastaukset.viestiNro}">viestinumero</span> | <span th:text="${vastaukset.aikaleima}">aikaleima</span><br/>
-                <span th:text="${vastaukset.teksti}">kommentti</span>
+                    <span th:text="${vastaukset.viestiNro}">viestinumero</span> >>(<span th:text="${vastaukset.lanka}"></span>) | <span th:text="${vastaukset.aikaleima}">aikaleima</span><br/>
+                    <span th:text="${vastaukset.teksti}">kommentti</span>
                 </p>
             </li>
         </ul>
+        <form method="POST" action="/l/:langanNimi">
+            Vastaa lankaan:<br/>
+            <input type="text" name="nimi"/><br/>
+            <input type="submit" value="Lähetä"/>
+        </form>
     </body>
 </html>

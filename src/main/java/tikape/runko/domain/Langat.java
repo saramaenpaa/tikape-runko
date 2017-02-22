@@ -7,17 +7,17 @@ import java.util.Date;
 public class Langat {
     private Integer viestiNro;
     private String otsikko;
-    private Keskustelualue alue;
+    private String alue;
     private String aikaleima;
 
-    public Langat(Integer viestiNro, String otsikko, Keskustelualue alue, String aikaleima) {
+    public Langat(Integer viestiNro, String otsikko, String alue, String aikaleima) {
         this.viestiNro = viestiNro;
         this.otsikko = otsikko;
         this.alue = alue;
         this.aikaleima = aikaleima;
     }
 
-    public Langat(Integer viestiNro, String otsikko, Keskustelualue alue) {
+    public Langat(Integer viestiNro, String otsikko, String alue) {
         this.viestiNro = viestiNro;
         this.otsikko = otsikko;
         this.alue = alue;

@@ -7,9 +7,9 @@ public class Vastaukset {
     private Integer viestiNro;
     private Langat lanka;
     private String teksti;
-    private Calendar aikaleima;
+    private String aikaleima;
 
-    public Vastaukset(Integer viestiNro, Langat lanka, String teksti, Calendar aikaleima) {
+    public Vastaukset(Integer viestiNro, Langat lanka, String teksti, String aikaleima) {
         this.viestiNro = viestiNro;
         this.lanka = lanka;
         this.teksti = teksti;
@@ -20,7 +20,7 @@ public class Vastaukset {
         this.viestiNro = viestiNro;
         this.lanka = lanka;
         this.teksti = teksti;
-        this.aikaleima = Calendar.getInstance();
+        this.aikaleima = Calendar.getInstance().getTime().toString();
     }
 
     public Langat getLanka() {
@@ -47,9 +47,8 @@ public class Vastaukset {
         this.viestiNro = viestiNro;
     }
     
-    public Calendar getAikaleima() {
+    public String getAikaleima() {
         return aikaleima;
-        //Tulostaa aikaleiman väärin
     }
 
     

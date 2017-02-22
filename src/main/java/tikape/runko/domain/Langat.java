@@ -8,9 +8,9 @@ public class Langat {
     private Integer viestiNro;
     private String otsikko;
     private Keskustelualue alue;
-    private Date aikaleima;
+    private String aikaleima;
 
-    public Langat(Integer viestiNro, String otsikko, Keskustelualue alue, Date aikaleima) {
+    public Langat(Integer viestiNro, String otsikko, Keskustelualue alue, String aikaleima) {
         this.viestiNro = viestiNro;
         this.otsikko = otsikko;
         this.alue = alue;
@@ -21,8 +21,7 @@ public class Langat {
         this.viestiNro = viestiNro;
         this.otsikko = otsikko;
         this.alue = alue;
-        Calendar start = Calendar.getInstance();
-        this.aikaleima = start.getTime();
+        this.aikaleima = Calendar.getInstance().getTime().toString();
     }
 
     public String getOtsikko() {
@@ -41,7 +40,7 @@ public class Langat {
         this.viestiNro = viestiNro;
     }
     
-    public Date getAikaleima() {
+    public String getAikaleima() {
         return aikaleima;
     }
     

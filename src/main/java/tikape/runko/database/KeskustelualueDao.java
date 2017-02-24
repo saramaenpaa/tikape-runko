@@ -2,6 +2,7 @@
 package tikape.runko.database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -131,6 +132,30 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
 
         return lista.get(0);
     }    
+    
+       public void lisaa(String alueenNimi) throws Exception {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Keskustelualue (alueenNimi) "
+                + "VALUES (?)");
+        stmt.setString(1, alueenNimi);
+        stmt.execute();
+
+        conn.close();
+
+    }
+       
+       public void lisaa(String alueenNimi, String kuvaus) throws Exception {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Keskustelualue (alueenNimi, kuvaus) "
+                + "VALUES (?, ?)");
+        stmt.setString(1, alueenNimi);
+        stmt.setString(2, kuvaus);
+        stmt.execute();
+
+        conn.close();
+
+    }
+
 
 }
 

@@ -166,11 +166,11 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
         return lista.get(0);
     }    
     
-    public void lisaa(String lanka, String vastaus) throws Exception {
+    public void lisaa(String vastaus, Integer lanka) throws Exception {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaukset (lanka, vastaus) "
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaukset (lanka, teksti) "
                 + "VALUES (?, ?)");
-        stmt.setString(1, lanka);
+        stmt.setInt(1, lanka);
         stmt.setString(2, vastaus);
         stmt.execute();
 

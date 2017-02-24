@@ -135,15 +135,11 @@ public class LangatDao implements Dao<Langat, Integer> {
             lista.add(montako);
         }
 
-<<<<<<< HEAD
         rs.close();
         stmt.close();
         connection.close();
 
         return lista.get(0);
     }    
-     
 
-=======
->>>>>>> 933b666062bcdceab656c53faa84960f28f3c75b
 }

@@ -1,4 +1,3 @@
-
 package tikape.runko.database;
 
 import java.sql.Connection;
@@ -30,7 +29,6 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
             return null;
         }
 
-        
         String nimi = rs.getString("alueenNimi");
         String kuvaus = rs.getString("kuvaus");
 
@@ -65,13 +63,11 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
         return keskustelualueet;
     }
 
-
     @Override
     public void delete(String key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-        
+
     public List<Keskustelualue> findOne2(String key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelualue WHERE alueenNimi = ?");
@@ -92,13 +88,13 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
 
         return keskustelualueet;
     }
-    
+
     public List<Keskustelualue> findAllFrom(String key) throws SQLException {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Langat WHERE alueenNimi.Keskustelualueet = ?");
         stmt.setObject(1, key);
-        
+
         ResultSet rs = stmt.executeQuery();
         List<Keskustelualue> keskustelualueet = new ArrayList<>();
         while (rs.next()) {
@@ -114,11 +110,11 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
 
         return keskustelualueet;
     }
-    
+
     public Integer viestienMaara() throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM Keskustelualue");
-        
+
         ResultSet rs = stmt.executeQuery();
         List<Integer> lista = new ArrayList<>();
         while (rs.next()) {
@@ -131,9 +127,9 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
         connection.close();
 
         return lista.get(0);
-    }    
-    
-       public void lisaa(String alueenNimi) throws Exception {
+    }
+
+    public void lisaa(String alueenNimi) throws Exception {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Keskustelualue (alueenNimi) "
                 + "VALUES (?)");
@@ -143,8 +139,8 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
         conn.close();
 
     }
-       
-       public void lisaa(String alueenNimi, String kuvaus) throws Exception {
+
+    public void lisaa(String alueenNimi, String kuvaus) throws Exception {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Keskustelualue (alueenNimi, kuvaus) "
                 + "VALUES (?, ?)");
@@ -156,6 +152,4 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
 
     }
 
-
 }
-

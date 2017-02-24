@@ -19,11 +19,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Database database = new Database("jdbc:sqlite:foorumi.db");
         database.init();
-        
+
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
         LangatDao langatDao = new LangatDao(database);
         VastauksetDao vastauksetDao = new VastauksetDao(database);
-        
+
         System.out.println(vastauksetDao.viestienMaaraFrom("Kissat"));
         System.out.println(vastauksetDao.viestienMaara());
 
@@ -37,10 +37,11 @@ public class Main {
 
             return new ModelAndView(map, "etusivu");//Tämä rivi määrää, mitä html-sivua käytetään etusivuna. Tässä etusivu.html.
         }, new ThymeleafTemplateEngine());
-        
+
         post("/", (req, res) -> {
             String alue = req.queryParams("alue");
-            keskustelualueDao.lisaa(alue);
+            String kuvaus = req.queryParams("kuvaus");
+            keskustelualueDao.lisaa(alue, kuvaus);
             res.redirect("/");
             return "ok";
         });
@@ -53,7 +54,7 @@ public class Main {
             map.put("langat", langatDao.findAllFrom(req.params("alueenNimi")));
             return new ModelAndView(map, "keskustelualue");//Sivun html-tiedosto on keskustelualue.html.
         }, new ThymeleafTemplateEngine());
-        
+
         post("/a/:alueenNimi", (req, res) -> {
             String vastaus = req.queryParams("Vastaus");
             return vastaus;
@@ -66,6 +67,6 @@ public class Main {
             map.put("vastaukset", vastauksetDao.findAllFrom(Integer.parseInt(req.params("viestiNro"))));
             return new ModelAndView(map, "langat");//Sivun html-tiedosto on langat.html.
         }, new ThymeleafTemplateEngine());
-        
+
     }
 }

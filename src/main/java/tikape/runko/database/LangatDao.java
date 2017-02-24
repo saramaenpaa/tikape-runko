@@ -1,6 +1,7 @@
 package tikape.runko.database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import tikape.runko.domain.Keskustelualue;
 import tikape.runko.domain.Langat;
 
@@ -70,6 +72,8 @@ public class LangatDao implements Dao<Langat, Integer> {
 
         return langat;
     }
+    
+    
 
     @Override
     public void delete(Integer key) throws SQLException {
@@ -122,6 +126,7 @@ public class LangatDao implements Dao<Langat, Integer> {
 
         return langat;
     }
+        
 
     public Integer lankojenMaaraFrom(String key) throws SQLException {
         // Laskee lankojen määrät tietyssä alueessa, ei kuitenkaan laske kaikki vastaukset
@@ -153,6 +158,25 @@ public class LangatDao implements Dao<Langat, Integer> {
 
         conn.close();
 
+    }
+    
+    public String viimeisinAikaleima(Integer key) throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
+        PreparedStatement stmt = conn.prepareStatement("SELECT aikaleima FROM Vastaukset WHERE aikaleima = (SELECT MAX(aikaleima) FROM Vastaukset) AND Vastaukset.lanka = ?");
+
+        stmt.setObject(1, key);
+        String aikaleima = "";
+
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            aikaleima = rs.getString("aikaleima");
+        }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
+        return aikaleima;
     }
 
 }

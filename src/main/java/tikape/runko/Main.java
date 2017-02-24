@@ -57,7 +57,9 @@ public class Main {
 
         post("/a/:alueenNimi", (req, res) -> {
             String vastaus = req.queryParams("Vastaus");
-            return vastaus;
+            langatDao.lisaa(vastaus, req.params(":alueenNimi"));
+            res.redirect("/a/"+req.params(":alueenNimi"));
+            return "ok";
         });
         //Lankojen sivujen osoitteet ovat muotoa /l/:viestiNro.
         get("/l/:viestiNro", (req, res) -> {

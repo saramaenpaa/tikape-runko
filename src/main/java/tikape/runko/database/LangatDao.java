@@ -1,6 +1,7 @@
 package tikape.runko.database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -121,13 +122,13 @@ public class LangatDao implements Dao<Langat, Integer> {
 
         return langat;
     }
-    
+
     public Integer lankojenMaaraFrom(String key) throws SQLException {
         // Laskee lankojen määrät tietyssä alueessa, ei kuitenkaan laske kaikki vastaukset
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM Langat WHERE Langat.alue = ?");
         stmt.setObject(1, key);
-        
+
         ResultSet rs = stmt.executeQuery();
         List<Integer> lista = new ArrayList<>();
         while (rs.next()) {
@@ -140,6 +141,18 @@ public class LangatDao implements Dao<Langat, Integer> {
         connection.close();
 
         return lista.get(0);
-    }    
+    }
+
+    public void lisaa(String otsikko, String alue) throws Exception {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Langat (otsikko, alue) "
+                + "VALUES (?, ?)");
+        stmt.setString(1, otsikko);
+        stmt.setString(2, ""+alue);
+        stmt.execute();
+
+        conn.close();
+
+    }
 
 }

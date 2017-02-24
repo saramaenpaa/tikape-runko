@@ -70,6 +70,13 @@ public class Main {
             map.put("vastaukset", vastauksetDao.findAllFrom(Integer.parseInt(req.params("viestiNro"))));
             return new ModelAndView(map, "langat");//Sivun html-tiedosto on langat.html.
         }, new ThymeleafTemplateEngine());
+        
+        post("/l/:viestiNro", (req, res) -> {
+            String vastaus = req.queryParams("teksti");
+            vastauksetDao.lisaa(vastaus, Integer.parseInt(req.params(":viestiNro")));
+            res.redirect("/l/"+req.params(":viestiNro"));
+            return "ok";
+        });
 
     }
 }

@@ -13,6 +13,7 @@ import tikape.runko.domain.Langat;
 import tikape.runko.domain.Vastaukset;
 
 public class Main {
+
     // Ensimmäinen muokkaus. Huimaa! t:Juho
     // Toinen muokkaus. Hurraa! t. Sara
     public static void main(String[] args) throws Exception {
@@ -22,10 +23,9 @@ public class Main {
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
         LangatDao langatDao = new LangatDao(database);
         VastauksetDao vastauksetDao = new VastauksetDao(database);
-        
+
         System.out.println(vastauksetDao.viestienMaaraFrom("Kissat"));
         System.out.println(vastauksetDao.viestienMaara());
-        
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite.
         get("/", (req, res) -> {
@@ -37,7 +37,15 @@ public class Main {
 
             return new ModelAndView(map, "etusivu");//Tämä rivi määrää, mitä html-sivua käytetään etusivuna. Tässä etusivu.html.
         }, new ThymeleafTemplateEngine());
-        
+
+        post("/", (req, res) -> {
+            String alue = req.queryParams("alue");
+            String kuvaus = req.queryParams("kuvaus");
+            keskustelualueDao.lisaa(alue, kuvaus);
+            res.redirect("/");
+            return "ok";
+        });
+
         //Alueiden sivujen osoitteet ovat muotoa /a/:alueenNimi."
         get("/a/:alueenNimi", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -45,8 +53,12 @@ public class Main {
             map.put("omaNimi", keskustelualueDao.findOne2(req.params("alueenNimi")).get(0));
             map.put("langat", langatDao.findAllFrom(req.params("alueenNimi")));
             return new ModelAndView(map, "keskustelualue");//Sivun html-tiedosto on keskustelualue.html.
-         }, new ThymeleafTemplateEngine());
-        
+        }, new ThymeleafTemplateEngine());
+
+        post("/a/:alueenNimi", (req, res) -> {
+            String vastaus = req.queryParams("Vastaus");
+            return vastaus;
+        });
         //Lankojen sivujen osoitteet ovat muotoa /l/:viestiNro.
         get("/l/:viestiNro", (req, res) -> {
             HashMap map = new HashMap<>();

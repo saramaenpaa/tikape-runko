@@ -128,9 +128,9 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
         return vastaukset;
     }
     
-    public List<Integer> viestienMaara() throws SQLException {
+    public Integer viestienMaara() throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT Keskustelualue.alueenNimi, COUNT(Vastaukset.viestiNro) AS total FROM Vastaukset, Langat, Keskustelualue WHERE Vastaukset.lanka = Langat.viestiNro AND Langat.alue = Keskustelualue.alueenNimi GROUP BY Keskustelualue.alueenNimi");
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(Vastaukset.viestiNro) AS total FROM Vastaukset, Langat, Keskustelualue WHERE Vastaukset.lanka = Langat.viestiNro AND Langat.alue = Keskustelualue.alueenNimi");
         
         ResultSet rs = stmt.executeQuery();
         List<Integer> lista = new ArrayList<>();
@@ -143,7 +143,7 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
         stmt.close();
         connection.close();
 
-        return lista;
+        return lista.get(0);
     }    
     
     public Integer viestienMaaraFrom(String key) throws SQLException {

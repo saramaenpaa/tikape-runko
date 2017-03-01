@@ -22,8 +22,6 @@ public class Main {
         LangatDao langatDao = new LangatDao(database);
         VastauksetDao vastauksetDao = new VastauksetDao(database);
         
-        System.out.println(vastauksetDao.viimeisinAikaleima(1));
-        System.out.println(vastauksetDao.viimeisinAikaleimaKaikista(3));
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite.
         get("/", (req, res) -> {

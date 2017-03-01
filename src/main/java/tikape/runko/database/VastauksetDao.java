@@ -218,7 +218,4 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
         return aikaleima;
     }
     
-     
-
-
 }

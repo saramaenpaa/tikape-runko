@@ -9,13 +9,9 @@
 
     </head>
 
-    <body style="background-color:#FFF0F0">
+    <body style="background-color:#FFF0F0; font-family: arial">
         <a href="/">Etusivulle</a>
-        <ul>
-
-            <h1><span th:text="${omaNimi.alueenNimi}"></span></h1>
-
-        </ul>
+        <h1><span th:text="${omaNimi.alueenNimi}"></span></h1>
         <ul>
             <li th:each="langat: ${langat}">
                 <a th:href="${'/l/' + langat.viestiNro}"> <b><span th:text="${langat.otsikko}"></span></b> </a>
@@ -28,10 +24,7 @@
             <p><input type="submit" value="Lähetä"/></p>
 =======
             <input type="text" name="Vastaus"/><br/>
-<<<<<<< HEAD
 
-=======
->>>>>>> fe4d5783af20bcb0a1b0e2b1025706acf60604ae
             <input type="submit" value="Lähetä"/>
 >>>>>>> e3eb7703cb1435733aabcc58d05b9d9ef296b945
         </form>

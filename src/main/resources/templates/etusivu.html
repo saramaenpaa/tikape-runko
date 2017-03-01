@@ -1,38 +1,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    
+
     <head>
         <title>Foorumin etusivu</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
-        
-        
+
+
+
     </head>
-    
-    <body style="background-color:#FFF0F0">
-        <h1>Etusivu</h1>
-        <h3>Lähetettyjä viestejä: <span th:text="${viestimaarat}">lukumäärä</span></h3>
-        <ul>
-            <li th:each="keskustelualueet: ${keskustelualueet}">
-                <a th:href="${'/a/' + keskustelualueet.alueenNimi}">
-                    <b>
-                        <span th:text="${keskustelualueet.alueenNimi}">alueen mimi</span>:
-                    </b>
+
+    <body style="background-color:#FFF0F0; font-family: arial">
+        <h1>FoorumiDB</h1>
+        <h2>SQL-pohjainen anonyymi foorumi</h2>
+
+        <table style="width: 100%; align: left">
+            <tr>
+                <th>Alueen Nimi</th>
+                <th>Kuvaus</th>
+                <th>Viestejä</th>
+                <th>Viimeisin viesti</th>
+            </tr>
+
+            <tr th:each="keskustelualueet: ${keskustelualueet}">
+
+                <td>
+                    <a th:href="${'/a/' + keskustelualueet.alueenNimi}">
+                        <b>
+                            <span th:text="${keskustelualueet.alueenNimi}">alueen mimi</span>:
+                        </b>
+                    </a>
+                </td>
+                <td>
                     <span th:text="${keskustelualueet.kuvaus}">kuvaus</span>
-                </a>
-                <span th:text="${keskustelualueet.viestiLkm}">kaikki</span> viestiä,
-                viimeisin viesti lähetetty <span th:text="${keskustelualueet.viimeisinViesti}">viimeisin viesti</span>
-            </li>
-        </ul>
+                </td>
+
+                <td>
+                    <span th:text="${keskustelualueet.viestiLkm}">kaikki</span> viestiä
+                </td>
+                <td>
+                    <span th:text="${keskustelualueet.viimeisinViesti}">viimeisin viesti</span>
+                </td>
+            </tr>
+        </table>
+
+        <br/>
+        
         <form method="POST" action="">
             Luo keskustelualue:<br/>
             <input type="text" name="alue"/><br/>
-             Kuvaus:<br/>
+            Kuvaus:<br/>
             <input type="text" name="kuvaus"/><br/>
             <input type="submit" value="Lähetä"/>
         </form>
-        
-       
-        
+
+
+
     </body>
 </html>

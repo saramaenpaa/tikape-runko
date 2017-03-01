@@ -9,7 +9,7 @@
 
     </head>
 
-    <body style="background-color:#FFF0F0">
+    <body style="background-color:#F0F0FF; font-family: arial">
         <a href="/">Etusivulle</a>
 
         <h1><span th:text="${omaNimi.otsikko}"></span></h1>
@@ -17,7 +17,7 @@
         <ul>
             <li th:each="vastaukset: ${vastaukset}">
                 <p>
-                    <span th:text="${vastaukset.viestiNro}">viestinumero</span> >>(<span th:text="${vastaukset.lanka}"></span>) | <span th:text="${vastaukset.aikaleima}">aikaleima</span><br/>
+                    <span th:text="${vastaukset.viestiNro}">viestinumero</span> | <span th:text="${vastaukset.aikaleima}">aikaleima</span><br/>
                     <span th:text="${vastaukset.teksti}">kommentti</span>
                 </p>
             </li>

@@ -72,8 +72,6 @@ public class LangatDao implements Dao<Langat, Integer> {
 
         return langat;
     }
-    
-    
 
     @Override
     public void delete(Integer key) throws SQLException {
@@ -106,7 +104,12 @@ public class LangatDao implements Dao<Langat, Integer> {
     public List<Langat> findAllFrom(String key) throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT Langat.* FROM Langat, Keskustelualue WHERE Langat.alue=Keskustelualue.alueenNimi AND Keskustelualue.alueenNimi = ?");
+        PreparedStatement stmt = connection.prepareStatement(
+                "SELECT Langat.* FROM Langat, Keskustelualue "
+                + "WHERE Langat.alue=Keskustelualue.alueenNimi AND Keskustelualue.alueenNimi = ? "
+                + "ORDER BY Langat.aikaleima DESC"
+                + ";"
+        );
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -126,7 +129,6 @@ public class LangatDao implements Dao<Langat, Integer> {
 
         return langat;
     }
-        
 
     public Integer lankojenMaaraFrom(String key) throws SQLException {
         // Laskee lankojen määrät tietyssä alueessa, ei kuitenkaan laske kaikki vastaukset
@@ -153,12 +155,11 @@ public class LangatDao implements Dao<Langat, Integer> {
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Langat (otsikko, alue) "
                 + "VALUES (?, ?)");
         stmt.setString(1, otsikko);
-        stmt.setString(2, ""+alue);
+        stmt.setString(2, "" + alue);
         stmt.execute();
 
         conn.close();
 
     }
-    
 
 }

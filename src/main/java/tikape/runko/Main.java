@@ -30,9 +30,8 @@ public class Main {
             //Luodaan kartta map.
             HashMap map = new HashMap<>();
             //Lisätään karttaan avaimella "keskustelualueet" lista kaikista keskustelualueista.
-            map.put("keskustelualueet", keskustelualueDao.findAll());
+            map.put("keskustelualueet", keskustelualueDao.findAllPlusViestimaaratPlusViimeisinVastaus());
             map.put("viestimaarat", vastauksetDao.viestienMaara());
-//            map.put("viestitAlueittain", vastauksetDao.viestienMaara());
 
             return new ModelAndView(map, "etusivu");//Tämä rivi määrää, mitä html-sivua käytetään etusivuna. Tässä etusivu.html.
         }, new ThymeleafTemplateEngine());

@@ -130,29 +130,35 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
     }
 
     //Palauttaa listan muotoa "alueenNimi, kuvaus, vastausten lukumäärä, viimeisin vastaus".
-    public List<String[]> findAllPlusViestimaaratPlusViimeisinVastaus() throws SQLException {
+    public List<Keskustelualue> findAllPlusViestimaaratPlusViimeisinVastaus() throws SQLException {
         Connection conn = this.database.getConnection();
 
         //Metodin sydän.
-        PreparedStatement stmt = conn.prepareStatement(
-                "SELECT Keskustelualue.*, Vastaukset.COUNT(*), Vastaukset.MAX(aikaleima)"
-                + "FROM Keskustelualue"
-                + "LEFT JOIN Langat ON Keskustelualue.alueenNimi=Langat.alue"
-                + "LEFT JOIN Vastaukset ON Langat.viestiNro=Vastaukset.lanka"
-                + "GROUP BY Keskustelualue.alueenNimi");
+        PreparedStatement stmt = conn.prepareStatement (
+                "SELECT Keskustelualue.*, COUNT(Vastaukset.viestiNro) AS viestiLkm, MAX(Vastaukset.aikaleima) AS viimeisinViesti "
+                + "FROM Keskustelualue "
+                + "LEFT JOIN Langat ON Keskustelualue.alueenNimi=Langat.alue "
+                + "LEFT JOIN Vastaukset ON Langat.viestiNro=Vastaukset.lanka "
+                + "GROUP BY Keskustelualue.alueenNimi"
+                + ";"
+        );
 
         ResultSet rs = stmt.executeQuery();
-        
-        List<String[]> alueetPlusVLkmPlusViimV = new ArrayList<>();
-        
-        while (rs.next()) {
-            String[] arvo = new String[4];
-            arvo[0] = rs.getString("alueenNimi");
-            arvo[1] = rs.getString("kuvaus");
-            arvo[2] = rs.getString("COUNT(Vastaukset.viestiNro)");
-            arvo[3] = rs.getString("MAX(Vastaukset.aikaleima)");
 
-            alueetPlusVLkmPlusViimV.add(arvo);
+        List<Keskustelualue> alueetPlusVLkmPlusViimV = new ArrayList<>();
+
+        while (rs.next()) {
+
+            String alueenNimi = rs.getString("alueenNimi");
+            String kuvaus = rs.getString("kuvaus");
+            String viestiLkm = rs.getString("viestiLkm");
+            String viimeisinViesti = rs.getString("viimeisinViesti");
+            
+            Keskustelualue keskustelualue = new Keskustelualue(alueenNimi, kuvaus, viestiLkm, viimeisinViesti);
+            //debug
+            System.out.println(keskustelualue.toString());
+            
+            alueetPlusVLkmPlusViimV.add(keskustelualue);
         }
 
         rs.close();

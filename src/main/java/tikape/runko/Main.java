@@ -14,8 +14,6 @@ import tikape.runko.domain.Vastaukset;
 
 public class Main {
 
-    // Ensimmäinen muokkaus. Huimaa! t:Juho
-    // Toinen muokkaus. Hurraa! t. Sara
     public static void main(String[] args) throws Exception {
         Database database = new Database("jdbc:sqlite:foorumi.db");
         database.init();
@@ -23,9 +21,9 @@ public class Main {
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
         LangatDao langatDao = new LangatDao(database);
         VastauksetDao vastauksetDao = new VastauksetDao(database);
-
-        System.out.println(vastauksetDao.viestienMaaraFrom("Kissat"));
-        System.out.println(vastauksetDao.viestienMaara());
+        
+        System.out.println(vastauksetDao.viimeisinAikaleima(1));
+        System.out.println(vastauksetDao.viimeisinAikaleima(2));
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite.
         get("/", (req, res) -> {
@@ -53,6 +51,7 @@ public class Main {
             //Alueiden omissa kartoissa on tiedot paitsi alueen omasta nimestä sekä siihen liittyvistä langoista.
             map.put("omaNimi", keskustelualueDao.findOne2(req.params("alueenNimi")).get(0));
             map.put("langat", langatDao.findAllFrom(req.params("alueenNimi")));
+            
             return new ModelAndView(map, "keskustelualue");//Sivun html-tiedosto on keskustelualue.html.
         }, new ThymeleafTemplateEngine());
 

@@ -129,17 +129,22 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
         return lista.get(0);
     }
 
-    //Palauttaa listan muotoa "alueenNimi, kuvaus, vastausten lukumäärä, viimeisin vastaus".
+    /*
+    Palauttaa listan muotoa "alueenNimi, kuvaus, vastausten lukumäärä, viimeisin vastaus".
+    Tätä metodia Main.java käyttää.
+     */
     public List<Keskustelualue> findAllPlusViestimaaratPlusViimeisinVastaus() throws SQLException {
         Connection conn = this.database.getConnection();
 
         //Metodin sydän.
-        PreparedStatement stmt = conn.prepareStatement (
+        PreparedStatement stmt = conn.prepareStatement(
                 "SELECT Keskustelualue.*, COUNT(Vastaukset.viestiNro) AS viestiLkm, MAX(Vastaukset.aikaleima) AS viimeisinViesti "
                 + "FROM Keskustelualue "
                 + "LEFT JOIN Langat ON Keskustelualue.alueenNimi=Langat.alue "
                 + "LEFT JOIN Vastaukset ON Langat.viestiNro=Vastaukset.lanka "
-                + "GROUP BY Keskustelualue.alueenNimi"
+                + "GROUP BY Keskustelualue.alueenNimi "
+                + "ORDER BY viimeisinViesti DESC "
+                + "LIMIT 30 "
                 + ";"
         );
 
@@ -153,11 +158,11 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
             String kuvaus = rs.getString("kuvaus");
             String viestiLkm = rs.getString("viestiLkm");
             String viimeisinViesti = rs.getString("viimeisinViesti");
-            
+
             Keskustelualue keskustelualue = new Keskustelualue(alueenNimi, kuvaus, viestiLkm, viimeisinViesti);
             //debug
             System.out.println(keskustelualue.toString());
-            
+
             alueetPlusVLkmPlusViimV.add(keskustelualue);
         }
 

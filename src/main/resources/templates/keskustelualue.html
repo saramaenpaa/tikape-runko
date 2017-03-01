@@ -12,20 +12,15 @@
     <body style="background-color:#FFF0F0; font-family: arial">
         <a href="/">Etusivulle</a>
         <h1><span th:text="${omaNimi.alueenNimi}"></span></h1>
-        <ul>
             <li th:each="langat: ${langat}">
                 <a th:href="${'/l/' + langat.viestiNro}"> <b><span th:text="${langat.otsikko}"></span></b> </a>
             </li>
-        </ul>
         <form method="POST" action="">
+            <p></p>
             Luo uusi lanka:<br/>
-
             <textarea id="txtArea" rows="3" cols="25" name="Vastaus"></textarea>
-            <p><input type="submit" value="Lähetä"/></p>
 
-            <input type="text" name="Vastaus"/><br/>
-
-            <input type="submit" value="Lähetä"/>
+           <p><input type="submit" value="Lähetä"/></p>
 
         </form>
     </body>

@@ -160,8 +160,6 @@ public class KeskustelualueDao implements Dao<Keskustelualue, String> {
             String viimeisinViesti = rs.getString("viimeisinViesti");
 
             Keskustelualue keskustelualue = new Keskustelualue(alueenNimi, kuvaus, viestiLkm, viimeisinViesti);
-            //debug
-            System.out.println(keskustelualue.toString());
 
             alueetPlusVLkmPlusViimV.add(keskustelualue);
         }

@@ -196,6 +196,28 @@ public class VastauksetDao implements Dao<Vastaukset, Integer> {
 
         return aikaleima;
     }
+    
+
+    public String viimeisinAikaleimaKaikista(Integer key) throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:foorumi.db");
+        PreparedStatement stmt = conn.prepareStatement("SELECT MAX(aikaleima) as ajat FROM (SELECT aikaleima FROM Langat WHERE viestiNro = ? UNION ALL SELECT aikaleima FROM Vastaukset WHERE lanka = ?)");
+
+        stmt.setObject(1, key);
+        stmt.setObject(2, key);
+        String aikaleima = "";
+
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            aikaleima = rs.getString("ajat");
+        }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
+        return aikaleima;
+    }
+    
      
 
 

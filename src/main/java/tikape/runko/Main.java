@@ -22,7 +22,8 @@ public class Main {
         LangatDao langatDao = new LangatDao(database);
         VastauksetDao vastauksetDao = new VastauksetDao(database);
         
-        System.out.println(langatDao.viimeisinAikaleima(2));
+        System.out.println(vastauksetDao.viimeisinAikaleima(1));
+        System.out.println(vastauksetDao.viimeisinAikaleima(2));
 
         //Etusivu: määritellään, että etusivun URL-osoite on palvelimen osoite.
         get("/", (req, res) -> {

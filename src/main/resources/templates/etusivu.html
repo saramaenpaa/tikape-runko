@@ -11,10 +11,17 @@
     
     <body style="background-color:#FFF0F0">
         <h1>Etusivu</h1>
-        Tämä on etusivu.
+        <h3>Lähetettyjä viestejä: <span th:text="${viestimaarat}">lukumäärä</span></h3>
         <ul>
-            <li th:each="keskustelualue: ${keskustelualueet}">
-                <a th:href="${'/a/' + keskustelualue.alueenNimi}"> <b><span th:text="${keskustelualue.alueenNimi}"></span>:</b> <span th:text="${keskustelualue.kuvaus}"></span> </a>
+            <li th:each="keskustelualueet: ${keskustelualueet}">
+                <a th:href="${'/a/' + keskustelualueet.alueenNimi}">
+                    <b>
+                        <span th:text="${keskustelualueet.alueenNimi}">alueen mimi</span>:
+                    </b>
+                    <span th:text="${keskustelualueet.kuvaus}">kuvaus</span>
+                </a>
+                <span th:text="${keskustelualueet.viestiLkm}">kaikki</span> viestiä,
+                viimeisin viesti lähetetty <span th:text="${keskustelualueet.viimeisinViesti}">viimeisin viesti</span>
             </li>
         </ul>
         <form method="POST" action="">

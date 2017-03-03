@@ -8,15 +8,24 @@ import tikape.runko.database.Database;
 import tikape.runko.database.KeskustelualueDao;
 import tikape.runko.database.LangatDao;
 import tikape.runko.database.VastauksetDao;
-import tikape.runko.domain.Keskustelualue;
-import tikape.runko.domain.Langat;
-import tikape.runko.domain.Vastaukset;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:foorumi.db");
-        database.init();
+//        Database database = new Database("jdbc:sqlite:foorumi.db");
+
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
+        
+        String jdbcOsoite = "jdbc:sqlite:foorumi.db";
+            // jos heroku antaa käyttöömme tietokantaosoitteen, otetaan se käyttöön
+            if (System.getenv("http://immense-taiga-31363.herokuapp.com") != null) {
+                jdbcOsoite = System.getenv("http://immense-taiga-31363.herokuapp.com");
+                //http://immense-taiga-31363.herokuapp.com/
+            } 
+
+        Database database = new Database(jdbcOsoite);
 
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
         LangatDao langatDao = new LangatDao(database);
